@@ -1,0 +1,38 @@
+{
+    "name": "devcuongnguyen/ophim-core",
+    "description": "Ophim's core features",
+    "type": "library",
+    "authors": [
+        {
+            "name": "devcuongnguyen",
+            "email": "dev.cuongnguyen@gmail.com"
+        }
+    ],
+    "require": {
+        "laravel/framework": "^6|^7|^8",
+        "ckfinder/ckfinder-laravel-package": "v3.5.2.1",
+        "league/flysystem-aws-s3-v3": "^1.0",
+        "devcuongnguyen/laravel-caching-model": "^1.0.0",
+        "devcuongnguyen/crud": "^1.0.0",
+        "devcuongnguyen/settings": "^1.0.0",
+        "devcuongnguyen/permissionmanager": "^1.0.0",
+        "spatie/laravel-sitemap": "^5.8",
+        "artesaos/seotools": "^v0.22.1"
+    },
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Ophim\\Core\\": "src/",
+            "Ophim\\Core\\Database\\Factories\\": "database/factories/",
+            "Ophim\\Core\\Database\\Seeders\\": "database/seeders/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Ophim\\Core\\OphimServiceProvider"
+            ]
+        }
+    },
+    "minimum-stability": "stable"
+}
