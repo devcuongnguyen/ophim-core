@@ -5,8 +5,8 @@ namespace Ophim\Core\Models;
 use Backpack\CRUD\app\Models\Traits\CrudTrait;
 use Backpack\Settings\app\Models\Setting;
 use Ophim\Core\Contracts\TaxonomyInterface;
-use Hacoidev\CachingModel\Contracts\Cacheable;
-use Hacoidev\CachingModel\HasCache;
+use devcuongnguyen\CachingModel\Contracts\Cacheable;
+use devcuongnguyen\CachingModel\HasCache;
 use Illuminate\Database\Eloquent\Model;
 use Ophim\Core\Contracts\SeoInterface;
 use Ophim\Core\Traits\HasFactory;
@@ -47,8 +47,10 @@ class Catalog extends Model implements TaxonomyInterface, Cacheable, SeoInterfac
     public static function primaryCacheKey(): string
     {
         $site_routes = setting('site_routes_types', '/danh-sach/{type}');
-        if (strpos($site_routes, '{type}')) return 'slug';
-        if (strpos($site_routes, '{id}')) return 'id';
+        if (strpos($site_routes, '{type}'))
+            return 'slug';
+        if (strpos($site_routes, '{id}'))
+            return 'id';
         return 'slug';
     }
 
@@ -56,8 +58,10 @@ class Catalog extends Model implements TaxonomyInterface, Cacheable, SeoInterfac
     {
         $params = [];
         $site_routes = setting('site_routes_types', '/danh-sach/{type}');
-        if (strpos($site_routes, '{type}')) $params['type'] = $this->slug;
-        if (strpos($site_routes, '{id}')) $params['id'] = $this->id;
+        if (strpos($site_routes, '{type}'))
+            $params['type'] = $this->slug;
+        if (strpos($site_routes, '{id}'))
+            $params['id'] = $this->id;
         return route('types.movies.index', $params);
     }
 
@@ -123,7 +127,7 @@ class Catalog extends Model implements TaxonomyInterface, Cacheable, SeoInterfac
 
     public function openView($crud = false)
     {
-        return '<a class="btn btn-sm btn-link" target="_blank" href="'.$this->getUrl().'" data-toggle="tooltip" title="View link"><i class="la la-link"></i> View</a>';
+        return '<a class="btn btn-sm btn-link" target="_blank" href="' . $this->getUrl() . '" data-toggle="tooltip" title="View link"><i class="la la-link"></i> View</a>';
     }
 
 

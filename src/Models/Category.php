@@ -5,8 +5,8 @@ namespace Ophim\Core\Models;
 use Backpack\CRUD\app\Models\Traits\CrudTrait;
 use Backpack\Settings\app\Models\Setting;
 use Ophim\Core\Contracts\TaxonomyInterface;
-use Hacoidev\CachingModel\Contracts\Cacheable;
-use Hacoidev\CachingModel\HasCache;
+use devcuongnguyen\CachingModel\Contracts\Cacheable;
+use devcuongnguyen\CachingModel\HasCache;
 use Illuminate\Database\Eloquent\Model;
 use Ophim\Core\Contracts\SeoInterface;
 use Ophim\Core\Traits\ActorLog;
@@ -55,8 +55,10 @@ class Category extends Model implements TaxonomyInterface, Cacheable, SeoInterfa
     public static function primaryCacheKey(): string
     {
         $site_routes = setting('site_routes_category', '/the-loai/{category}');
-        if (strpos($site_routes, '{category}')) return 'slug';
-        if (strpos($site_routes, '{id}')) return 'id';
+        if (strpos($site_routes, '{category}'))
+            return 'slug';
+        if (strpos($site_routes, '{id}'))
+            return 'id';
         return 'slug';
     }
 
@@ -64,8 +66,10 @@ class Category extends Model implements TaxonomyInterface, Cacheable, SeoInterfa
     {
         $params = [];
         $site_routes = setting('site_routes_category', '/the-loai/{category}');
-        if (strpos($site_routes, '{category}')) $params['category'] = $this->slug;
-        if (strpos($site_routes, '{id}')) $params['id'] = $this->id;
+        if (strpos($site_routes, '{category}'))
+            $params['category'] = $this->slug;
+        if (strpos($site_routes, '{id}'))
+            $params['id'] = $this->id;
         return route('categories.movies.index', $params, $withDomain);
     }
 
@@ -92,7 +96,7 @@ class Category extends Model implements TaxonomyInterface, Cacheable, SeoInterfa
         $movie_thumb_url = '';
         $movie_poster_url = '';
         $updated_at = '';
-        if(count($this->movies)) {
+        if (count($this->movies)) {
             $movie_thumb_url = filter_var($this->movies->last()->thumb_url, FILTER_VALIDATE_URL) ? $this->movies->last()->thumb_url : request()->root() . $this->movies->last()->thumb_url;
             $movie_poster_url = filter_var($this->movies->last()->poster_url, FILTER_VALIDATE_URL) ? $this->movies->last()->poster_url : request()->root() . $this->movies->last()->poster_url;
             $updated_at = $this->movies->last()->updated_at;
@@ -114,7 +118,7 @@ class Category extends Model implements TaxonomyInterface, Cacheable, SeoInterfa
             ->addProperty('updated_time', $updated_at)
             ->addProperty('url', $getUrl)
             ->setDescription($seo_des)
-            ->addImages([$movie_thumb_url,$movie_poster_url]);
+            ->addImages([$movie_thumb_url, $movie_poster_url]);
 
         TwitterCard::setSite($site_meta_siteName)
             ->setTitle($seo_title, false)
@@ -131,7 +135,7 @@ class Category extends Model implements TaxonomyInterface, Cacheable, SeoInterfa
             ->addValue('dateModified', $updated_at)
             ->addValue('datePublished', $updated_at)
             ->setDescription($seo_des)
-            ->setImages([$movie_thumb_url,$movie_poster_url])
+            ->setImages([$movie_thumb_url, $movie_poster_url])
             ->setUrl($getUrl);
 
         $breadcrumb = [];

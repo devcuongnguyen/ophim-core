@@ -3,8 +3,8 @@
 namespace Ophim\Core\Models;
 
 use Backpack\CRUD\app\Models\Traits\CrudTrait;
-use Hacoidev\CachingModel\Contracts\Cacheable;
-use Hacoidev\CachingModel\HasCache;
+use devcuongnguyen\CachingModel\Contracts\Cacheable;
+use devcuongnguyen\CachingModel\HasCache;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Artisan;
 use Ophim\Core\Traits\HasFactory;
@@ -43,7 +43,7 @@ class Theme extends Model implements Cacheable
             return 'Unknown';
         }
 
-        return  \PackageVersions\Versions::getVersion($this->package_name);
+        return \PackageVersions\Versions::getVersion($this->package_name);
     }
 
     public function getOptionsAttribute()

@@ -5,8 +5,8 @@ namespace Ophim\Core\Models;
 use Backpack\CRUD\app\Models\Traits\CrudTrait;
 use Backpack\Settings\app\Models\Setting;
 use Ophim\Core\Contracts\TaxonomyInterface;
-use Hacoidev\CachingModel\Contracts\Cacheable;
-use Hacoidev\CachingModel\HasCache;
+use devcuongnguyen\CachingModel\Contracts\Cacheable;
+use devcuongnguyen\CachingModel\HasCache;
 use Illuminate\Database\Eloquent\Model;
 use Ophim\Core\Contracts\SeoInterface;
 use Ophim\Core\Traits\HasFactory;
@@ -108,12 +108,12 @@ class Studio extends Model implements TaxonomyInterface, Cacheable, SeoInterface
         // ->addValue($key, $value);
 
         JsonLdMulti::newJsonLd()
-        ->setSite(setting('site_meta_siteName'))
-        ->setTitle($seo_title, false)
-        ->setType('movie')
-        ->setDescription($seo_des)
-        ->setUrl($this->getUrl());
-    // ->addValue($key, $value);
+            ->setSite(setting('site_meta_siteName'))
+            ->setTitle($seo_title, false)
+            ->setType('movie')
+            ->setDescription($seo_des)
+            ->setUrl($this->getUrl());
+        // ->addValue($key, $value);
     }
 
 

@@ -5,8 +5,8 @@ namespace Ophim\Core\Models;
 use Backpack\CRUD\app\Models\Traits\CrudTrait;
 use Backpack\Settings\app\Models\Setting;
 use Ophim\Core\Contracts\HasUrlInterface;
-use Hacoidev\CachingModel\Contracts\Cacheable;
-use Hacoidev\CachingModel\HasCache;
+use devcuongnguyen\CachingModel\Contracts\Cacheable;
+use devcuongnguyen\CachingModel\HasCache;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Cache;
 use Ophim\Core\Contracts\SeoInterface;
@@ -53,10 +53,14 @@ class Episode extends Model implements Cacheable, HasUrlInterface, SeoInterface
 
         $params = [];
         $site_routes_movie = setting('site_routes_episode', '/phim/{movie}/{episode}-{id}');
-        if (strpos($site_routes_movie, '{movie}')) $params['movie'] = $movie->slug;
-        if (strpos($site_routes_movie, '{movie_id}')) $params['movie_id'] = $movie->id;
-        if (strpos($site_routes_movie, '{episode}')) $params['episode'] = $this->slug;
-        if (strpos($site_routes_movie, '{id}')) $params['id'] = $this->id;
+        if (strpos($site_routes_movie, '{movie}'))
+            $params['movie'] = $movie->slug;
+        if (strpos($site_routes_movie, '{movie_id}'))
+            $params['movie_id'] = $movie->id;
+        if (strpos($site_routes_movie, '{episode}'))
+            $params['episode'] = $this->slug;
+        if (strpos($site_routes_movie, '{id}'))
+            $params['id'] = $this->id;
 
         return route('episodes.show', $params);
     }
@@ -97,7 +101,7 @@ class Episode extends Model implements Cacheable, HasUrlInterface, SeoInterface
             ->addProperty('url', $episode_getUrl)
             ->addProperty('updated_time', $this->movie->updated_at)
             ->setDescription($movie_description)
-            ->addImages([$movie_thumb_url,$movie_poster_url])
+            ->addImages([$movie_thumb_url, $movie_poster_url])
             ->setVideoEpisode([
                 'actor' => $this->movie->actors->pluck('name')->join(","),
                 'director' => $this->movie->directors->pluck('name')->join(","),
@@ -122,7 +126,7 @@ class Episode extends Model implements Cacheable, HasUrlInterface, SeoInterface
             ->setTitle($getTitle, false)
             ->setType('Movie')
             ->setDescription($movie_description)
-            ->setImages([$movie_thumb_url,$movie_poster_url])
+            ->setImages([$movie_thumb_url, $movie_poster_url])
             ->addValue('aggregateRating', [
                 '@type' => 'AggregateRating',
                 'bestRating' => "10",
@@ -131,10 +135,10 @@ class Episode extends Model implements Cacheable, HasUrlInterface, SeoInterface
                 'reviewCount' => $this->movie->getRatingCount()
             ])
             ->addValue('director', count($this->movie->directors) ? $this->movie->directors->map(function ($director) {
-                return ['@type'=> 'Person', 'name' => $director->name];
+                return ['@type' => 'Person', 'name' => $director->name];
             }) : "")
             ->addValue('actor', count($this->movie->actors) ? $this->movie->actors->map(function ($actor) {
-                return ['@type'=> 'Person', 'name' => $actor->name];
+                return ['@type' => 'Person', 'name' => $actor->name];
             }) : "")
             ->setUrl($episode_getUrl);
         // ->addValue($key, $value);

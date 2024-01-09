@@ -10,8 +10,8 @@ use Artesaos\SEOTools\Facades\TwitterCard;
 use Backpack\CRUD\app\Models\Traits\CrudTrait;
 use Backpack\Settings\app\Models\Setting;
 use Ophim\Core\Contracts\TaxonomyInterface;
-use Hacoidev\CachingModel\Contracts\Cacheable;
-use Hacoidev\CachingModel\HasCache;
+use devcuongnguyen\CachingModel\Contracts\Cacheable;
+use devcuongnguyen\CachingModel\HasCache;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Cache;
 use Ophim\Core\Contracts\SeoInterface;
@@ -61,8 +61,10 @@ class Movie extends Model implements TaxonomyInterface, Cacheable, SeoInterface
     public static function primaryCacheKey(): string
     {
         $site_routes = setting('site_routes_movie', '/phim/{movie}');
-        if (strpos($site_routes, '{movie}')) return 'slug';
-        if (strpos($site_routes, '{id}')) return 'id';
+        if (strpos($site_routes, '{movie}'))
+            return 'slug';
+        if (strpos($site_routes, '{id}'))
+            return 'id';
         return 'slug';
     }
 
@@ -70,8 +72,10 @@ class Movie extends Model implements TaxonomyInterface, Cacheable, SeoInterface
     {
         $params = [];
         $site_routes = setting('site_routes_movie', '/phim/{movie}');
-        if (strpos($site_routes, '{movie}')) $params['movie'] = $this->slug;
-        if (strpos($site_routes, '{id}')) $params['id'] = $this->id;
+        if (strpos($site_routes, '{movie}'))
+            $params['movie'] = $this->slug;
+        if (strpos($site_routes, '{id}'))
+            $params['id'] = $this->id;
         return route('movies.show', $params);
     }
 
@@ -133,7 +137,7 @@ class Movie extends Model implements TaxonomyInterface, Cacheable, SeoInterface
                 ->addProperty('locale', 'vi-VN')
                 ->addProperty('updated_time', $this->updated_at)
                 ->addProperty('url', $getUrl)
-                ->addImages([$movie_thumb_url,$movie_poster_url])
+                ->addImages([$movie_thumb_url, $movie_poster_url])
                 ->setVideoMovie([
                     'actor' => $this->actors->pluck('name')->join(","),
                     'director' => $this->directors->pluck('name')->join(","),
@@ -149,7 +153,7 @@ class Movie extends Model implements TaxonomyInterface, Cacheable, SeoInterface
                 ->addProperty('locale', 'vi-VN')
                 ->addProperty('updated_time', $this->updated_at)
                 ->addProperty('url', $getUrl)
-                ->addImages([$movie_thumb_url,$movie_poster_url])
+                ->addImages([$movie_thumb_url, $movie_poster_url])
                 ->setVideoTVShow([
                     'actor' => $this->actors->pluck('name')->join(","),
                     'director' => $this->directors->pluck('name')->join(","),

@@ -5,8 +5,8 @@ namespace Ophim\Core\Models;
 use Backpack\CRUD\app\Models\Traits\CrudTrait;
 use Backpack\Settings\app\Models\Setting;
 use Ophim\Core\Contracts\TaxonomyInterface;
-use Hacoidev\CachingModel\Contracts\Cacheable;
-use Hacoidev\CachingModel\HasCache;
+use devcuongnguyen\CachingModel\Contracts\Cacheable;
+use devcuongnguyen\CachingModel\HasCache;
 use Illuminate\Database\Eloquent\Model;
 use Ophim\Core\Contracts\SeoInterface;
 use Ophim\Core\Traits\ActorLog;
@@ -55,8 +55,10 @@ class Region extends Model implements TaxonomyInterface, Cacheable, SeoInterface
     public static function primaryCacheKey(): string
     {
         $site_routes = setting('site_routes_region', '/quoc-gia/{region}');
-        if (strpos($site_routes, '{region}')) return 'slug';
-        if (strpos($site_routes, '{id}')) return 'id';
+        if (strpos($site_routes, '{region}'))
+            return 'slug';
+        if (strpos($site_routes, '{id}'))
+            return 'id';
         return 'slug';
     }
 
@@ -64,8 +66,10 @@ class Region extends Model implements TaxonomyInterface, Cacheable, SeoInterface
     {
         $params = [];
         $site_routes = setting('site_routes_region', '/quoc-gia/{region}');
-        if (strpos($site_routes, '{region}')) $params['region'] = $this->slug;
-        if (strpos($site_routes, '{id}')) $params['id'] = $this->id;
+        if (strpos($site_routes, '{region}'))
+            $params['region'] = $this->slug;
+        if (strpos($site_routes, '{id}'))
+            $params['id'] = $this->id;
         return route('regions.movies.index', $params, $withDomain);
     }
 
@@ -92,7 +96,7 @@ class Region extends Model implements TaxonomyInterface, Cacheable, SeoInterface
         $movie_thumb_url = '';
         $movie_poster_url = '';
         $updated_at = '';
-        if(count($this->movies)) {
+        if (count($this->movies)) {
             $movie_thumb_url = filter_var($this->movies->last()->thumb_url, FILTER_VALIDATE_URL) ? $this->movies->last()->thumb_url : request()->root() . $this->movies->last()->thumb_url;
             $movie_poster_url = filter_var($this->movies->last()->poster_url, FILTER_VALIDATE_URL) ? $this->movies->last()->poster_url : request()->root() . $this->movies->last()->poster_url;
             $updated_at = $this->movies->last()->updated_at;
