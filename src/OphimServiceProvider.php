@@ -111,8 +111,8 @@ class OphimServiceProvider extends ServiceProvider
     protected function publishFiles()
     {
         $backpack_menu_contents_view = [
-            __DIR__ . '/../resources/views/core/base/'  => resource_path('views/vendor/hacoidev/base/'),
-            __DIR__ . '/../resources/views/core/crud/'      => resource_path('views/vendor/hacoidev/crud/'),
+            __DIR__ . '/../resources/views/core/base/' => resource_path('views/vendor/devcuongnguyen/base/'),
+            __DIR__ . '/../resources/views/core/crud/' => resource_path('views/vendor/devcuongnguyen/crud/'),
         ];
 
         $players = [
@@ -131,24 +131,30 @@ class OphimServiceProvider extends ServiceProvider
 
     protected function mergeBackpackConfigs()
     {
-        config(['backpack.base.styles' => array_merge(config('backpack.base.styles', []), [
-            'packages/select2/dist/css/select2.css',
-            'packages/select2-bootstrap-theme/dist/select2-bootstrap.min.css'
-        ])]);
+        config([
+            'backpack.base.styles' => array_merge(config('backpack.base.styles', []), [
+                'packages/select2/dist/css/select2.css',
+                'packages/select2-bootstrap-theme/dist/select2-bootstrap.min.css'
+            ])
+        ]);
 
-        config(['backpack.base.scripts' => array_merge(config('backpack.base.scripts', []), [
-            'packages/select2/dist/js/select2.full.min.js'
-        ])]);
+        config([
+            'backpack.base.scripts' => array_merge(config('backpack.base.scripts', []), [
+                'packages/select2/dist/js/select2.full.min.js'
+            ])
+        ]);
 
-        config(['backpack.base.middleware_class' => array_merge(config('backpack.base.middleware_class', []), [
-            \Backpack\CRUD\app\Http\Middleware\UseBackpackAuthGuardInsteadOfDefaultAuthGuard::class,
-        ])]);
+        config([
+            'backpack.base.middleware_class' => array_merge(config('backpack.base.middleware_class', []), [
+                \Backpack\CRUD\app\Http\Middleware\UseBackpackAuthGuardInsteadOfDefaultAuthGuard::class,
+            ])
+        ]);
 
-        config(['cachebusting_string' => \PackageVersions\Versions::getVersion('hacoidev/crud')]);
+        config(['cachebusting_string' => \PackageVersions\Versions::getVersion('devcuongnguyen/crud')]);
 
         config(['backpack.base.project_logo' => '<b>Ophim</b>CMS']);
-        config(['backpack.base.developer_name' => 'hacoidev']);
-        config(['backpack.base.developer_link' => 'mailto:hacoi.dev@gmail.com']);
+        config(['backpack.base.developer_name' => 'cuongnguyen']);
+        config(['backpack.base.developer_link' => 'mailto:devcuongnguyen@gmail.com']);
         config(['backpack.base.show_powered_by' => false]);
     }
 
