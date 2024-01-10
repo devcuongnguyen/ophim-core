@@ -12,6 +12,7 @@ use Ophim\Core\Console\CreateUser;
 use Ophim\Core\Console\InstallCommand;
 use Ophim\Core\Console\GenerateMenuCommand;
 use Ophim\Core\Console\ChangeDomainEpisodeCommand;
+use Ophim\Core\Console\UpdateSettingTable;
 use Ophim\Core\Middleware\CKFinderAuth;
 use Ophim\Core\Models\Actor;
 use Ophim\Core\Models\Catalog;
@@ -74,9 +75,10 @@ class OphimServiceProvider extends ServiceProvider
     public function boot()
     {
 
-        if ($this->app->environment('production')) {
-            \URL::forceScheme('https');
-        }
+
+        !$this->app->environment('production') ?: \URL::forceScheme('https');
+
+
 
         $this->registerPolicies();
 
@@ -108,6 +110,7 @@ class OphimServiceProvider extends ServiceProvider
             CreateUser::class,
             GenerateMenuCommand::class,
             ChangeDomainEpisodeCommand::class,
+            UpdateSettingTable::class,
         ]);
 
         $this->bootSeoDefaults();
